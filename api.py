@@ -13,6 +13,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from google.oauth2 import service_account
+from time import sleep
 
 # Global DB client variable
 db = ""
@@ -56,15 +57,6 @@ def setup_db_access():
 
         db = firestore.client()
 
-        
-        dataset = db.collection(u'env_data').document(u'dataset')
-
-        try:
-                doc = doc_ref.get()
-                print(u'Document data: {}'.format(doc.to_dict()))
-        except Exception:
-                print(u'No such document!')
-
 """Updates pot operating data
 
    This function creates a listener that will fetch updates to the 'env_data' dataset when it is 
@@ -79,8 +71,12 @@ def setup_db_access():
 def update_data():
 
         dataset = db.collection(u'env_data').document(u'dataset')
-        dataset_listener = dataset.on_snapshot(on_snapshot)
 
+        try:
+                doc = dataset.get()
+                print(u'Document data: {}'.format(doc.to_dict()))
+        except Exception:
+                print(u'No such document!')
 
 """Updates firestore data 
 
@@ -120,11 +116,14 @@ def save_current_conditions():
 """
 def on_snapshot(doc_snapshot, changes, read_time):
     for doc in doc_snapshot:
-        print(u'Received document snapshot: {}'.format(doc.id))
+        print(u'Received document snapshot: {}'.format(doc.env_data))
 
 
 
 
 # test loop
 setup_db_access()
-update_data()
+
+while True:
+        update_data()
+        sleep(10)
