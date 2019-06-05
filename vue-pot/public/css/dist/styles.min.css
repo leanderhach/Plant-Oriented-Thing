@@ -1,0 +1,45 @@
+:root {
+  --green-brand-color:#9FFF66;
+  --green-status-color:#66FF99;
+  --red-status-color:#FF6669;
+  --yellow-status-color:#FFFF66;
+  --font-dark:#1A2A3A;
+  --font-light:#2A3A4A;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--font-dark);
+  margin-top: 60px;
+  max-width: 1280px;
+}
+
+main h1 {
+  font-family: 'Inconsolata', sans-serif;
+  font-size: 3em;
+  text-align: center;
+}
+
+main h1 span:nth-child(odd) {
+  color: var(--green-brand-color);
+}
+
+main h1 span:nth-child(even) {
+  color: var(--font-dark);
+}
+/*# sourceMappingURL=styles.min.css.map */

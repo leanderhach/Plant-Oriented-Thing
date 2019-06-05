@@ -1,0 +1,40 @@
+
+:root{
+    --green-brand-color:#9FFF66;
+    --green-status-color:#66FF99;
+    --red-status-color:#FF6669;
+    --yellow-status-color:#FFFF66;
+    --font-dark:#1A2A3A;
+    --font-light:#2A3A4A;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#app{
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--font-dark);
+    margin-top: 60px;
+    max-width:1280px;
+}
+
+main{
+
+    h1{
+        font-family: 'Inconsolata', sans-serif;
+        font-size:3em;
+        text-align: center;
+
+        span:nth-child(odd){
+            color:var(--green-brand-color);
+        }
+        span:nth-child(even){
+            color:var(--font-dark);
+        }
+    }
+}
