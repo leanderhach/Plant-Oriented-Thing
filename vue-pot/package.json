@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "firebase-admin": "^8.0.0",
+    "firebase": "^6.1.0",
+    "http2": "^3.3.7",
     "vue": "^2.6.10"
   },
   "devDependencies": {
