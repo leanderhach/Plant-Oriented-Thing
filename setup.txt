@@ -1,0 +1,17 @@
+instructions for running this program locally
+
+1. Check if pip is installed by typing pip into a cmd window. If an error occurs, install pip
+
+2. type the following command: pip install virtualenv
+
+3. open a new cmd window in the folder where you have this project. For example: C:\users\leand\POT
+
+4. type the following command: virtualenv env
+
+4a. On windows, type .\env\Scripts\activate
+
+4b. on mac, type source env/bin/activate
+
+5. type pip install -r requirements.txt
+
+DONE
