@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-import time
+import time, threading
 GPIO.setmode(GPIO.BCM)
 
 file = open("SensorData.txt", "w") #stores data file in same directory as this program file
@@ -21,15 +21,17 @@ def RC_Analog(Pin):
 
 
     #Main program loop
-while True:
-    time.sleep(1)
+def sensors_main():
+
+    print('calling sensors')
+
     ts = time.time()
     reading = RC_Analog(4) #store counts in a variable
     counter = 0
     time_start = 0
     time_end = 0
     
-    print ts, reading  #print counts using GPIO4 and time
+    print(ts, reading)  #print counts using GPIO4 and time
     file.write(str(ts) + " " + str(reading) + "\n") #write data to file
 
     while (reading < 10.00):
@@ -43,5 +45,5 @@ while True:
 #    else:
  #     print('Your plants are safe and healthy, yay!')
 
-GPIO.cleanup()
-file.close()
+# GPIO.cleanup()
+# file.close()

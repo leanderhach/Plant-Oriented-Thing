@@ -1,14 +1,13 @@
 import gpiozero
 from signal import pause
 
-led = RGBLED(2, 3, 4)
-sensor = LightSensor(18)
 
-led.color = (1, 1, 0)
+# def manage_light():
+#     led = RGBLED(2, 3, 4)
+#     sensor = LightSensor(18)
 
-led = PWMLED(16)
+#     led.color = (1, 1, 0)
 
-led.source = sensor
+#     led = PWMLED(16)
 
-
-pause()
+#     led.source = sensor
