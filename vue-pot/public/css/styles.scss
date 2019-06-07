@@ -14,6 +14,10 @@ body{
     justify-content: center;
 }
 
+*{
+    text-align:center;
+}
+
 #app{
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -37,10 +41,81 @@ main{
             color:var(--font-dark);
         }
     }
+}
 
-    input{
-        + label{
+.loading{
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:5;
+    background:var(--green-brand-color);
+    height:100%;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 
+    h1{
+        font-family: 'Inconsolata', sans-serif;
+        font-size:3em;
+        text-align: center;
+
+        span:nth-child(odd){
+            color:white;
         }
+        span:nth-child(even){
+            color:var(--font-dark);
+        }
+    }
+}
+
+.primary-item{
+    margin-bottom:30px;
+}
+
+.value-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.value-display{
+    display:flex;
+    flex-direction: column-reverse;
+
+    :first-child{
+        order: 1;
+    }
+
+    :last-child{
+        order: 2;
+    }
+
+    input, select{
+        font-family: 'Inconsolata', sans-serif;
+        background:none;
+        border:none;
+        color:var(--font-dark);
+        font-size:1.5em;
+        transition: all .33s ease;
+        margin-bottom:10px;
+        border-radius:4px;
+
+        &:hover{
+            background: #EAEBED;
+        }
+
+    }
+
+    label{
+            color:var(--font-light);
+            font-family: 'Open Sans', sans-serif;
+            font-size:1em;
+    }
+}
+
+@media screen and (max-width:500px){
+    .value-container{
+        flex-direction: column;
     }
 }
