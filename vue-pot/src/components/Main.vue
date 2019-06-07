@@ -10,7 +10,7 @@
     
     <h3 class="primary-item">Pot Data</h3>
     <div class="value-container primary-item">
-      <div v-for="(k, v) in potData" :key="k" class="value-display">
+      <div v-for="(k, v) in potData" :key="v" class="value-display">
         <input type="text" :name="v" disabled :value="k">
         <label :for="v">{{ v }}</label>
       </div>
@@ -52,13 +52,11 @@
 
 import db from '@/firebase/firebaseInit'
 import { Compact } from 'vue-color'
-import thing from '@/components/Thing'
 
 export default {
   name: 'Main',
   components: {
     'compact-picker': Compact,
-    'thing': thing
   },
   data() {
     return {
@@ -82,7 +80,6 @@ export default {
             this.potData = doc.data()
         } else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
         }
       })
 
@@ -92,34 +89,33 @@ export default {
             this.sortEnvData()
         } else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
         }
       })
     },
     saveData (e, name='plant') {
       
         let dataset = db.collection('env_data').doc('dataset')
-        let changed = e
 
         switch(name){
           case 'plant':
             dataset.update({
               'current_plant': this.plant
             })
+            break
 
           case 'led_grow_color':
             dataset.update({
               'led_grow_color': [e['rgba']['r'], e['rgba']['g'], e['rgba']['b']]
             })
+            break
           
           case 'led_warning_color':
             dataset.update({
               'led_warning_color': [e['rgba']['r'], e['rgba']['g'], e['rgba']['b']]
             })
+            break
 
         }
-        console.log(changed)
-        console.log("stuff happened")
     },
     sortEnvData () {
       let data = this.envData
