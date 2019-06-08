@@ -1,14 +1,13 @@
-import gpiozero
-from signal import pause
+import 
+import neopixel
+import explorerhat as ex
+from time import sleep
 
-led = RGBLED(2, 3, 4)
-sensor = LightSensor(18)
+pixels = neopixel.NeoPixel(board.D12, 30)
+pixels.fill((0, 255, 0))
 
-led.color = (1, 1, 0)
-
-led = PWMLED(16)
-
-led.source = sensor
-
-
+while True:
+    print(1 - (ex.analog.one.read() / 5))
+    sleep(2)
+    
 pause()
