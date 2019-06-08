@@ -5,13 +5,17 @@ import time
 from datetime import datetime
 from PIL import Image
 
-camera = picamera.PiCamera()
 
-difference = 10
-pixels = 25
+def setup_camera():
+    camera = picamera.PiCamera()
 
-width = 1280
-height = 960
+    difference = 10
+    pixels = 25
+
+    width = 1280
+    height = 960
+
+    return (camera, difference, pixels, width, height)
 
 def compare():
     camera.resolution = (100, 75)

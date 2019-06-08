@@ -8,7 +8,7 @@
         - on_snapshot
 """
 
-import urllib.request, json, sensors, lights
+import urllib.request, json, threading
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -28,9 +28,13 @@ db = ""
         A tuple containing growing requirements for the plant
 """
 def get_plant_needs(id):
-    with urllib.request.urlopen("http://trefle.io/api/plants/{}?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09".format(id)) as url:
-        data = json.loads(url.read().decode())
-        
+
+        print('getting plant {}'.format(id))
+        with urllib.request.urlopen("http://trefle.io/api/plants/{}?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09".format(id)) as url:
+                data = json.loads(url.read().decode())
+
+        print(data['main_species']['growth'])
+
         return(data['main_species']['growth'])
 
 
@@ -73,8 +77,9 @@ def update_data():
         dataset = db.collection(u'env_data').document(u'dataset')
 
         try:
-                doc = dataset.get()
-                print(u'Document data: {}'.format(doc.to_dict()))
+                doc = (dataset.get()).to_dict()
+                
+                get_plant_needs(doc['current_plant'])
         except Exception:
                 print(u'No such document!')
 
@@ -91,18 +96,19 @@ def update_data():
    None
 """
 def save_current_conditions():
+        print('updating')
 
-        humidity = sensors.get_humidity()
-        led_intensity = lights.get_led_intensity()
-        light_level = sensors.get_light_level()
-        dataset = db.collection(u'pot_data').document(u'dataset')
+        # humidity = sensors.get_humidity()
+        # led_intensity = lights.get_led_intensity()
+        # light_level = sensors.get_light_level()
+        # dataset = db.collection(u'pot_data').document(u'dataset')
 
 
-        dataset.update({
-                u'humidity': humidity,
-                u'led_intensity': led_intensity,
-                u'light_level': light_level
-                })
+        # dataset.update({
+        #         u'humidity': humidity,
+        #         u'led_intensity': led_intensity,
+        #         u'light_level': light_level
+        #         })
 
 
 
@@ -121,9 +127,11 @@ def on_snapshot(doc_snapshot, changes, read_time):
 
 
 
-# test loop
-setup_db_access()
+# main api loop
+def api_main():
 
-while True:
+        print('calling api')
+
+        #run api calls
         update_data()
-        sleep(10)
+        save_current_conditions()

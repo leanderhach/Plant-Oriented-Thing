@@ -1,4 +1,3 @@
-import 
 import neopixel
 import explorerhat as ex
 from time import sleep
