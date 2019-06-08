@@ -14,6 +14,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from google.oauth2 import service_account
 from time import sleep
+from file import write_env_data
 
 # Global DB client variable
 db = ""
@@ -33,9 +34,11 @@ def get_plant_needs(id):
         with urllib.request.urlopen("http://trefle.io/api/plants/{}?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09".format(id)) as url:
                 data = json.loads(url.read().decode())
 
-        print(data['main_species']['growth'])
-
-        return(data['main_species']['growth'])
+        return {
+                'min_water': data['main_species']['growth']['precipitation_minimum']['cm'], 
+                'max_water': data['main_species']['growth']['precipitation_maximum']['cm'],
+                'shade': data['main_species']['growth']['shade_tolerance']
+                }
 
 
 """Sets up the connection to Google firestore
@@ -79,7 +82,12 @@ def update_data():
         try:
                 doc = (dataset.get()).to_dict()
                 
-                get_plant_needs(doc['current_plant'])
+                doc['plant_data'] = get_plant_needs(doc['current_plant'])
+
+                write_env_data(doc)
+
+
+
         except Exception:
                 print(u'No such document!')
 

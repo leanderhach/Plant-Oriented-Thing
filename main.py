@@ -2,6 +2,7 @@ from time import sleep
 
 from api import setup_db_access, api_main
 from repeating_thread import RepeatingThread
+from file import read_env_data
 from sensors import sensors_main
 
 
@@ -20,5 +21,10 @@ from sensors import sensors_main
 
 ## access database and start loop
 setup_db_access()
-RepeatingThread(5, api_main)
-RepeatingThread(5, sensors_main)
+main_thread = RepeatingThread(5, api_main)
+
+sensors_thread = RepeatingThread(5, sensors_main)
+
+#### to kill the threads, call .stop()
+# main_thread.stop()
+# sensors_thread.stop()
