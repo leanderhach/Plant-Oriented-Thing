@@ -20,8 +20,10 @@
     <div class="value-container primary-item">
       <div class="value-display">
         <select name="plant"  v-model="plant" @change="saveData($event)">
-          <option value="104912">Bog Rosemary</option>
-          <option value="169056">Rosemary Mint</option>
+          <option value="130303">Fragnant Dracaena</option>
+          <option value="144580">Iberis Sempervirens</option>
+          <option value="146422">Chinese Jupiter</option>
+          <option value="122784">Convallaria Majalis</option>
         </select>
         <label for="plant">Select Plant</label>
       </div>
@@ -34,6 +36,11 @@
       <div class="value-display">
         <compact-picker style="margin: 0 40px" v-model='led_warning_color' @input="saveData($event, 'led_warning_color')"></compact-picker>
         <label>Select Warning Color</label>
+      </div>
+    </div>
+    <div class="value-container primary-item">
+      <div class="value-display">
+        <button @click="saveData($event, 'pump_status')">Water Plant</button>
       </div>
     </div>
     <div class="loading" v-if="loading">
@@ -112,6 +119,12 @@ export default {
           case 'led_warning_color':
             dataset.update({
               'led_warning_color': [e['rgba']['r'], e['rgba']['g'], e['rgba']['b']]
+            })
+            break
+
+          case 'pump_status':
+            dataset.update({
+              'pump_status': true
             })
             break
 

@@ -27,6 +27,20 @@ body{
     max-width:1280px;
 }
 
+button{
+    padding: 20px 60px;
+    border: none;
+    background: var(--green-brand-color);
+    color: var(--font-dark);
+    font-size: 1.5em;
+    font-family: 'Inconsolata', sans-serif;
+    cursor:pointer;
+
+    &:hover{
+        color:white;
+    }
+}
+
 main{
 
     h1{
@@ -111,6 +125,7 @@ main{
             color:var(--font-light);
             font-family: 'Open Sans', sans-serif;
             font-size:1em;
+            margin-bottom: 10px;
     }
 }
 
