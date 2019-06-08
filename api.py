@@ -5,7 +5,6 @@
         - setup_db_access
         - update_data
         - save_current_conditions
-        - on_snapshot
 """
 
 import urllib.request, json, threading
@@ -117,22 +116,6 @@ def save_current_conditions():
         #         u'led_intensity': led_intensity,
         #         u'light_level': light_level
         #         })
-
-
-
-"""helper function for live db updates
-
-   Params
-   None
-
-   Return
-   None
-"""
-def on_snapshot(doc_snapshot, changes, read_time):
-    for doc in doc_snapshot:
-        print(u'Received document snapshot: {}'.format(doc.env_data))
-
-
 
 
 # main api loop
