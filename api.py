@@ -24,7 +24,7 @@ db = ""
 """Sets data about the plant
 
         due to access restrictions on trefle, this method must be used to set data about the plant inside the datbse, 
-        whih can then be accessed by the app
+        which can then be accessed by the app
         
         Params
         data - the full response dict from trefle.io (see get_plant_needs)
@@ -41,7 +41,7 @@ def set_plant_data(data):
                 u'name': data['common_name'],
                 u'scientific_name': data['scientific_name'],
                 u'image': data['images'][0]['url'],
-                u'growth_peroid':data['main_species']['specifications']['growth_period']
+                u'growth_period':data['main_species']['specifications']['growth_period']
                 })
         
 """Fetches plant needs from trefle API
