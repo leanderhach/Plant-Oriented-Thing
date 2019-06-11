@@ -39,7 +39,7 @@ export default {
 
             axios({
                 method: 'get',
-                url: 'http://trefle.io/api/plants/ ' + id + '?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09'
+                url: 'https://trefle.io/api/plants/ ' + id + '?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09'
             })
             .then((response) => {
                 console.log('it runs')
