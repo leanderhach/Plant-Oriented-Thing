@@ -3,6 +3,7 @@ import file
 from time import sleep
 
 dictionary = read_env_data("plant_data")
+#we need to have the motor pump 50cl at a time, still need to figure out seconds to do that
 
 def start(seconds):
     ex.motor.one.forward(90)
