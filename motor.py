@@ -2,10 +2,13 @@ import explorerhat as ex
 import file
 from time import sleep
 
-dictionary = read_env_data("plant_data")
-#we need to have the motor pump 50cl at a time, still need to figure out seconds to do that
 
 def start(seconds):
+    dictionary = read_env_data("plant_data")
+    min = dictionary['min_water']
+    max = dictionary['max_water']
+    wateramount = ((min+max)/2)/365 #amount per day
+    wateramont = wateramount*3 #concentrated every 3 days (verify watering frequence for our specific plant)
     ex.motor.one.forward(90)
     sleep(seconds)
     ex.motor.one.stop()
