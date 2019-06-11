@@ -52,6 +52,11 @@ def read_env_data(key):
     with open ('env.json', 'r') as infile:
         data = json.load(infile)
 
-        print(data)
+        if type(data[key]) is list:
 
-        return data[key]
+            print(tuple(data[key]))
+            return tuple(data[key])
+
+        else:
+
+            return data[key]

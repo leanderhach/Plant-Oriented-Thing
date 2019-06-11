@@ -15,7 +15,8 @@ from firebase_admin import firestore
 from google.oauth2 import service_account
 from time import sleep
 from file import write_env_data
-
+from lights import get_light_level, get_light_intensity
+from sensors import get_humidity
 # Global DB client variable
 db = ""
 
@@ -106,17 +107,17 @@ def update_data():
 def save_current_conditions():
         print('updating')
 
-        # humidity = sensors.get_humidity()
-        # led_intensity = lights.get_led_intensity()
-        # light_level = sensors.get_light_level()
-        # dataset = db.collection(u'pot_data').document(u'dataset')
+        humidity = get_humidity()
+        led_intensity = get_light_intensity()
+        light_level = get_light_level()
+        dataset = db.collection(u'pot_data').document(u'dataset')
 
 
-        # dataset.update({
-        #         u'humidity': humidity,
-        #         u'led_intensity': led_intensity,
-        #         u'light_level': light_level
-        #         })
+        dataset.update({
+              u'humidity': humidity,
+              u'led_intensity': led_intensity,
+              u'light_level': light_level
+              })
 
 
 

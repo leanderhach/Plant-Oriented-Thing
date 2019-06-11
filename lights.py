@@ -1,16 +1,17 @@
 import neopixel
+import board
+import file
 import explorerhat as ex
 from time import sleep
 
 light_levels = []
 led = 0
-
+value = 0
 def setup_lights():
     global led
     global light_levels
-    led = neopixel.NeoPixel(board.D12, 30, auto_write=True, brightnes=0)
-    led.fill((223, 147, 189))
-    for i in range(20):
+    led = neopixel.NeoPixel(board.D18, 30, auto_write=True, brightness=0)
+    for i in range(5):
         light_levels.append(0)
 
 def list_insert(lightvalue):
@@ -32,10 +33,16 @@ def set_led(**kwargs):
             led.fill(value)
         if key == "brightness":
             led.brightness = value
+            
+def get_light_level():
+    return value
+
+def get_light_intensity():
+    return led.brightness
 
 def lights_main():
+    global value
     value = (ex.analog.one.read()/5)
     list_insert(value)
     print("\nSENSOR  ", median(), "\n")
-    set_led(brightness=median())
-    
+    set_led(brightness=median(), color=file.read_env_data("led_grow_color"))
