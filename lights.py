@@ -7,6 +7,7 @@ from time import sleep
 light_levels = []
 led = 0
 value = 0
+
 def setup_lights():
     global led
     global light_levels
@@ -44,5 +45,4 @@ def lights_main():
     global value
     value = (ex.analog.one.read()/5)
     list_insert(value)
-    print("\nSENSOR  ", median(), "\n")
-    set_led(brightness=median(), color=file.read_env_data("led_grow_color"))
+    print("\nSENSOR  ", median(), "\n")   

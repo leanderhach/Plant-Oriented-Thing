@@ -16,10 +16,8 @@ from time import sleep
 from file import write_env_data
 from lights import get_light_level, get_light_intensity
 from sensors import get_humidity
-<<<<<<< HEAD
-=======
 
->>>>>>> 5917ffe6f987d709fc151ec58b3274563b20ec5b
+
 # Global DB client variable
 db = ""
 
@@ -40,7 +38,7 @@ def set_plant_data(data):
        dataset = db.collection(u'plant_data').document(u'dataset')
 
 
-        dataset.update({
+       dataset.update({
                 u'name': data['common_name'],
                 u'scientific_name': data['scientific_name'],
                 u'image': data['images'][0]['url'],
