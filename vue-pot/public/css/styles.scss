@@ -55,6 +55,10 @@ main{
             color:var(--font-dark);
         }
     }
+
+    img{
+        max-width:100vw;
+    }
 }
 
 .loading{
