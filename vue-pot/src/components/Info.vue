@@ -14,6 +14,7 @@
 <script>
 
 import db from '@/firebase/firebaseInit'
+import axios from 'axios'
 
 export default {
     name:'Info',
@@ -36,17 +37,18 @@ export default {
                     }
                 })
 
-
-            fetch('http://trefle.io/api/plants/ ' + id + '?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09', {
-                  mode: 'cors',
-                headers: {
-                    'Access-Control-Allow-Origin':'*'
-                }
+            axios({
+                method: 'get',
+                url: 'http://trefle.io/api/plants/ ' + id + '?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09'
             })
-               .then(res => res.json())
-                .then((out) => {
-                    console.log('Output: ', out);
-                }).catch(err => console.error(err));
+            .then((response) => {
+                console.log('it runs')
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log('fuck shit bitch')
+                console.log(error)
+            })
         }
     },
     beforeMount() {
