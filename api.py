@@ -14,11 +14,36 @@ from firebase_admin import firestore
 from google.oauth2 import service_account
 from time import sleep
 from file import write_env_data
+from lights import get_light_level, get_light_intensity
+from sensors import get_humidity
 
 # Global DB client variable
 db = ""
 
 
+"""Sets data about the plant
+
+        due to access restrictions on trefle, this method must be used to set data about the plant inside the datbse, 
+        whih can then be accessed by the app
+        
+        Params
+        data - the full response dict from trefle.io (see get_plant_needs)
+        
+        Return
+        None
+
+"""
+def set_plant_data(data):
+       dataset = db.collection(u'plant_data').document(u'dataset')
+
+
+        dataset.update({
+                u'name': data['common_name'],
+                u'scientific_name': data['scientific_name'],
+                u'image': data['images'][0]['url'],
+                u'growth':data['main_species']['specifications']['growth_period']
+                })
+        
 """Fetches plant needs from trefle API
 
         Params
@@ -32,6 +57,8 @@ def get_plant_needs(id):
         print('getting plant {}'.format(id))
         with urllib.request.urlopen("http://trefle.io/api/plants/{}?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09".format(id)) as url:
                 data = json.loads(url.read().decode())
+                
+        set_plant_data(data)
 
         return {
                 'min_water': data['main_species']['growth']['precipitation_minimum']['cm'], 
@@ -105,17 +132,17 @@ def update_data():
 def save_current_conditions():
         print('updating')
 
-        # humidity = sensors.get_humidity()
-        # led_intensity = lights.get_led_intensity()
-        # light_level = sensors.get_light_level()
-        # dataset = db.collection(u'pot_data').document(u'dataset')
+        humidity = get_humidity()
+        led_intensity = get_led_intensity()
+        light_level = get_light_level()
+        dataset = db.collection(u'pot_data').document(u'dataset')
 
 
-        # dataset.update({
-        #         u'humidity': humidity,
-        #         u'led_intensity': led_intensity,
-        #         u'light_level': light_level
-        #         })
+        dataset.update({
+                u'humidity': humidity,
+                u'led_intensity': led_intensity,
+                u'light_level': light_level
+                })
 
 
 # main api loop
