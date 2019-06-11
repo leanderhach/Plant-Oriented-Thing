@@ -5,7 +5,6 @@
         - setup_db_access
         - update_data
         - save_current_conditions
-        - on_snapshot
 """
 
 import urllib.request, json, threading
@@ -17,10 +16,37 @@ from time import sleep
 from file import write_env_data
 from lights import get_light_level, get_light_intensity
 from sensors import get_humidity
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5917ffe6f987d709fc151ec58b3274563b20ec5b
 # Global DB client variable
 db = ""
 
 
+"""Sets data about the plant
+
+        due to access restrictions on trefle, this method must be used to set data about the plant inside the datbse, 
+        which can then be accessed by the app
+        
+        Params
+        data - the full response dict from trefle.io (see get_plant_needs)
+        
+        Return
+        None
+
+"""
+def set_plant_data(data):
+       dataset = db.collection(u'plant_data').document(u'dataset')
+
+
+        dataset.update({
+                u'name': data['common_name'],
+                u'scientific_name': data['scientific_name'],
+                u'image': data['images'][0]['url'],
+                u'growth_period':data['main_species']['specifications']['growth_period']
+                })
+        
 """Fetches plant needs from trefle API
 
         Params
@@ -34,6 +60,8 @@ def get_plant_needs(id):
         print('getting plant {}'.format(id))
         with urllib.request.urlopen("http://trefle.io/api/plants/{}?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09".format(id)) as url:
                 data = json.loads(url.read().decode())
+                
+        set_plant_data(data)
 
         return {
                 'min_water': data['main_species']['growth']['precipitation_minimum']['cm'], 
@@ -119,7 +147,7 @@ def save_current_conditions():
               u'light_level': light_level
               })
 
-
+ 
 
 """helper function for live db updates
 
@@ -132,8 +160,11 @@ def save_current_conditions():
 def on_snapshot(doc_snapshot, changes, read_time):
     for doc in doc_snapshot:
         print(u'Received document snapshot: {}'.format(doc.env_data))
-
-
+        dataset.update({
+                u'humidity': humidity,
+                u'led_intensity': led_intensity,
+                u'light_level': light_level
+                })
 
 
 # main api loop
