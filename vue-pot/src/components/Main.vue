@@ -82,13 +82,10 @@ export default {
       let pd = db.collection('pot_data').doc('dataset')
       let ed = db.collection('env_data').doc('dataset')
 
-      pd.get().then((doc) => {
-        if (doc.exists) {
-            this.potData = doc.data()
-        } else {
-            // doc.data() will be undefined in this case
-        }
-      })
+ 
+     pd.onSnapshot(function(doc) {
+       this.potData = doc.data()
+      });
 
       ed.get().then((doc) => {
         if (doc.exists) {
