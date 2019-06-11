@@ -41,7 +41,7 @@ def set_plant_data(data):
                 u'name': data['common_name'],
                 u'scientific_name': data['scientific_name'],
                 u'image': data['images'][0]['url'],
-                u'growth':data['main_species']['specifications']['growth_period']
+                u'growth_peroid':data['main_species']['specifications']['growth_period']
                 })
         
 """Fetches plant needs from trefle API
