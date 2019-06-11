@@ -10,7 +10,7 @@ def start(seconds):
     wateramount = ((min+max)/2)/365 #amount per day
     wateramont = wateramount*3 #concentrated every 3 days (verify watering frequence for our specific plant)
     ex.motor.one.forward(90)
-    sleep(seconds)
+    sleep(seconds) #change number of seconds once we figure out ml/s pumped
     ex.motor.one.stop()
 
 def stop():
