@@ -3,14 +3,21 @@ import file
 from time import sleep
 
 
-def start(seconds):
-    dictionary = read_env_data("plant_data")
-    min = dictionary['min_water']
-    max = dictionary['max_water']
+def start():
+    data = read_env_data("plant_data")
+    min = data['min_water']
+    max = data['max_water']
     waterAmount = ((min+max)/2)/365 #amount per day
     waterAmount = waterAmount*3 #concentrated every 3 days (verify watering frequence for our specific plant)
+
+
+    flowRate = 12
+
+    timeInOperation = waterAmount / flowRate
+
+    
     ex.motor.one.forward(90)
-    sleep(seconds) #change number of seconds once we figure out ml/s pumped
+    sleep(timeInOperation) #change number of seconds once we figure out ml/s pumped
     ex.motor.one.stop()
 
 def stop():
@@ -18,7 +25,4 @@ def stop():
 
 
 def motor_main():
-    value = (ex.analog.one.read()/5)
-    list_insert(value)
-    print("\nSENSOR  ", median(), "\n")
-    set_led(brightness=median())
+    start()
