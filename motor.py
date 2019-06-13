@@ -1,7 +1,7 @@
 import explorerhat as ex
 import file
 from time import sleep
-
+from api import update_pump_status
 
 def start():
     data = read_env_data("plant_data")
@@ -25,7 +25,8 @@ def stop():
 
 
 def motor_main():
-    if read_env_data(pump_status) == False:
+    if read_env_data("pump_status") == True:
+        update_pump_status(False)
         start()
     else:
         #do nothing
