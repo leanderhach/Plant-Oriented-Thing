@@ -25,4 +25,7 @@ def stop():
 
 
 def motor_main():
-    start()
+    if read_env_data(pump_status) == False:
+        start()
+    else:
+        #do nothing

@@ -5,6 +5,7 @@ from repeating_thread import RepeatingThread
 from file import read_env_data
 from sensors import sensors_main
 from lights import setup_lights, lights_main
+from motor import motor_main
 
 
 """Main loop
@@ -27,6 +28,8 @@ setup_lights()
 main_thread = RepeatingThread(5, api_main)
 sensors_thread = RepeatingThread(5, sensors_main)
 lights_main = RepeatingThread(5, lights_main)
+motor_main = RepeatingThread(5, motor_main)
+
 
 #### to kill the threads, call .stop()
 # main_thread.stop()
