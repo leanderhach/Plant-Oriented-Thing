@@ -11,7 +11,7 @@ def start():
     waterAmount = waterAmount*3 #concentrated every 3 days (verify watering frequence for our specific plant)
 
 
-    flowRate = 12
+    flowRate = 13
 
     timeInOperation = waterAmount / flowRate
 
