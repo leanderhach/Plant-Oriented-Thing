@@ -145,7 +145,26 @@ def save_current_conditions():
               u'light_level': light_level
               })
 
- 
+"""Updates pump status
+
+        This function will update the pump_status variable inside firebase. It should be called when the watering rpgoram has been run
+        and the pump is now off
+
+        Params
+        status - a boolean that determines the pump status
+
+        Return
+        None
+
+"""
+
+def update_pump_status(status):
+
+        dataset = db.coolection(u'env_data').document(u'dataset')
+
+        dataset.update({
+                u'pump_status': status
+        })
 
 """helper function for live db updates
 
