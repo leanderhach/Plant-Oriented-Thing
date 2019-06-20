@@ -56,16 +56,20 @@ def set_plant_data(data):
 def get_plant_needs(id):
 
         print('getting plant {}'.format(id))
-        with urllib.request.urlopen("http://trefle.io/api/plants/{}?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09".format(id)) as url:
-                data = json.loads(url.read().decode())
-                
-        set_plant_data(data)
 
-        return {
-                'min_water': data['main_species']['growth']['precipitation_minimum']['cm'], 
-                'max_water': data['main_species']['growth']['precipitation_maximum']['cm'],
-                'shade': data['main_species']['growth']['shade_tolerance']
-                }
+        try:
+               with urllib.request.urlopen("https://trefle.io/api/plants/{}?token=QjFTVmRBKzk2TEh1MVpDa3BFZHJhUT09".format(id)) as url:
+                       data = json.loads(url.read().decode())
+                
+               set_plant_data(data)
+       
+               return {
+                       'min_water': data['main_species']['growth']['precipitation_minimum']['cm'], 
+                       'max_water': data['main_species']['growth']['precipitation_maximum']['cm'],
+                       'shade': data['main_species']['growth']['shade_tolerance']
+                       }
+        except Exception as e:
+              print(e)
 
 
 """Sets up the connection to Google firestore
@@ -108,15 +112,11 @@ def update_data():
 
         try:
                 doc = (dataset.get()).to_dict()
-                
-                doc['plant_data'] = get_plant_needs(doc['current_plant'])
-
+                get_plant_needs(doc['current_plant'])
                 write_env_data(doc)
-
-
-
-        except Exception:
-                print(u'No such document!')
+                
+        except Exception as e:
+                print(u'an error cocurred while fetching a resource : {}'.format(e))
 
 """Updates firestore data 
 
@@ -160,7 +160,7 @@ def save_current_conditions():
 
 def update_pump_status(status):
 
-        dataset = db.coolection(u'env_data').document(u'dataset')
+        dataset = db.collection(u'env_data').document(u'dataset')
 
         dataset.update({
                 u'pump_status': status

@@ -30,7 +30,10 @@ import json
 
 """
 def write_env_data(data):
+    print('trying to write')
     with open ('env.json', 'w') as outfile:
+
+            print('file found, writing')
             json.dump(data, outfile)
 
 
@@ -49,8 +52,11 @@ def write_env_data(data):
 
 """ 
 def read_env_data(key):
+    print('attempting to read file')
     with open ('env.json', 'r') as infile:
         data = json.load(infile)
+
+        print('data found')
 
         if type(data[key]) is list:
 
