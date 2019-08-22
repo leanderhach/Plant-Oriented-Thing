@@ -4,7 +4,7 @@ Welcome to the public repository for the P.O.T. project.
 
 ## What is this?
 
-The P.O.T. is a 'smart pot' designed for an university course.
+The P.O.T. is a 'smart pot' designed for the Maker Lab course of the University Of Bolzano.
 
 ## What can it do?
 
@@ -26,7 +26,7 @@ This is a prototype. That'll be for V2.
 
 ## OMG the code is ugly
 
-Shut up, it's wonderful.
+Hush! It's wonderful.
 
 ## How do i set it up?
 
@@ -36,7 +36,7 @@ Instructions for running this program locally
 
 1. Check if pip is installed by typing pip into a cmd window. If an error occurs, install pip
 
-2. type the following command: pip install virtualenv
+2. type the following command: ```pip install virtualenv```
 
 3. open a new cmd window in the folder where you have this project. For example: ```C:\users\leand\POT```
 
@@ -44,7 +44,7 @@ Instructions for running this program locally
 
     4a. On windows, type ```.\env\Scripts\activate```
 
-    4b. on mac, type source ```env/bin/activate```
+    4b. on mac, type ```source env/bin/activate```
 
 5. type ```pip install -r requirements.txt```
    
